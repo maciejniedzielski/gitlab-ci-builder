@@ -10,11 +10,6 @@ export const light = {
       "accent-3": "#FCA326",
     },
   },
-  button: {
-    border: {
-      radius: "4px",
-    },
-  },
 };
 
 export const dark = {

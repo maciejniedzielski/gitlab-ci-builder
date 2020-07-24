@@ -5,6 +5,7 @@ import { Moon, Sun } from "grommet-icons";
 import Builder from "./components/Builder";
 import { light, dark } from "./app-themes";
 import "./App.css";
+import Home from "./components/Home";
 
 export enum AppTheme {
   LIGHT,
@@ -26,7 +27,10 @@ const App = () => {
       <Main align="center" pad="small" height="100vh">
         <Router>
           <Switch>
-            <Route path="/">
+            <Route exact path="/">
+              <Home />
+            </Route>
+            <Route path="/builder">
               <Builder />
             </Route>
           </Switch>

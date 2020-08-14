@@ -1,6 +1,7 @@
 export const light = {
   global: {
     colors: {
+      background: "#FFFFFF",
       brand: "#E2432A",
       focus: "#DADADA",
       active: "#DADADA",
@@ -13,5 +14,10 @@ export const light = {
 };
 
 export const dark = {
-  ...light,
+  global: {
+    colors: {
+      ...light.global.colors,
+      background: "#303030",
+    },
+  },
 };

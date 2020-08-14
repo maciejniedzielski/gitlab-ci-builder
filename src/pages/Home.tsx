@@ -1,9 +1,10 @@
 import React from "react";
-import { Box, Paragraph, Button, Text } from "grommet";
-import { ReactComponent as LogoIcon } from "../images/gitlab-icon.svg";
-import logoMono from "../images/gitlab-logo-mono.svg";
+import { Box, Paragraph, Button } from "grommet";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { ReactComponent as LogoIcon } from "../images/gitlab-icon.svg";
+import logoMono from "../images/gitlab-logo-mono.svg";
+import { GITLAB_OAUTH2_URL } from "../constants";
 
 const Logo = styled.h1`
   font-size: 48px;
@@ -51,10 +52,7 @@ const Home = () => {
         </Link>
       </Paragraph>
       <Paragraph>or</Paragraph>
-      <a
-        href="https://gitlab.example.com/oauth/authorize?client_id=APP_ID&redirect_uri=REDIRECT_URI&response_type=code&state=YOUR_UNIQUE_STATE_HASH&scope=REQUESTED_SCOPES"
-        className="link"
-      >
+      <a href={GITLAB_OAUTH2_URL} className="link">
         <GitlabButton
           primary
           reverse

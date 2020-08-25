@@ -1,70 +1,59 @@
-import React, { useState, ChangeEvent } from "react";
+import React, { FC } from "react";
 import { Button, Form, Box, Paragraph, Heading } from "grommet";
+import { FormProvider, useForm, useFieldArray } from "react-hook-form";
 import { Add } from "grommet-icons";
-import { generate } from "shortid";
-import { Stage } from "../interfaces";
 import StageControl from "./StageControl";
 
-const BuilderForm = () => {
-  const [stages, setStages] = useState<Stage[]>([]);
-  const emptyStage: Stage = {
-    id: generate(),
-    name: "",
-    run_branch: [],
-    except_branch: [],
-    image: "",
-    variables: [],
-    scripts: "",
-    dependencies: [],
-  };
+const BuilderForm: FC = () => {
+  const methods = useForm({
+    mode: "onChange",
+    reValidateMode: "onChange",
+  });
+  const { control, watch, handleSubmit } = methods;
 
-  const handleFormChange = (e: ChangeEvent<HTMLFormElement>) => {
-    console.log(e);
-  };
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "stages",
+  });
 
-  const handleFieldChange = (value: Stage): void => {
-    setStages([
-      ...stages.map((stage) => (stage.id === value.id ? { ...value } : stage)),
-    ]);
-  };
+  console.log(watch());
 
-  const handleFieldRemove = (id: string) => {
-    setStages([...stages.filter((stage) => stage.id !== id)]);
-  };
+  const onSubmit = (data: unknown) => console.log(data);
 
   return (
-    <Form onChange={handleFormChange}>
-      <Box align="center" justify="center">
-        {!stages.length && (
-          <Box align="center">
-            <Heading level="1" responsive size="small" margin="xxsmall">
-              Hello! [name]
-            </Heading>
-            <Paragraph>Create your first Gitlab CI stage</Paragraph>
-          </Box>
-        )}
-        {stages.map((value, index) => (
-          <StageControl
-            key={value.id}
-            stages={stages}
-            value={value}
-            index={index}
-            onChange={handleFieldChange}
-            onRemove={handleFieldRemove}
-          ></StageControl>
-        ))}
+    <FormProvider {...methods}>
+      <Form onSubmit={handleSubmit(onSubmit)}>
+        <Box align="center" justify="center">
+          {!fields.length && (
+            <Box align="center">
+              <Heading level="1" responsive size="small" margin="xxsmall">
+                Hello! [name]
+              </Heading>
+              <Paragraph>Create your first Gitlab CI stage</Paragraph>
+            </Box>
+          )}
 
-        <Button
-          primary
-          type="button"
-          icon={<Add />}
-          size="large"
-          margin="20px 0"
-          label={stages.length === 0 ? "Add stage" : "Add another stage"}
-          onClick={() => setStages((stages) => [...stages, emptyStage])}
-        />
-      </Box>
-    </Form>
+          {fields.map(({ id }, index) => (
+            <StageControl
+              control={control}
+              key={id}
+              index={index}
+              onRemove={remove}
+            ></StageControl>
+          ))}
+
+          <Button
+            primary
+            type="button"
+            icon={<Add />}
+            size="large"
+            margin="20px 0"
+            label={fields.length === 0 ? "Add stage" : "Add another stage"}
+            onClick={append}
+          />
+        </Box>
+      </Form>
+    </FormProvider>
   );
 };
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { Grommet, Main, Header, Button } from "grommet";
 import { Moon, Sun } from "grommet-icons";
@@ -7,14 +7,10 @@ import "./App.css";
 import Builder from "./pages/Builder";
 import Home from "./pages/Home";
 import Auth from "./pages/Auth";
-
-export enum AppTheme {
-  LIGHT = "light",
-  DARK = "dark",
-}
+import { AppTheme, ThemeContext } from "./context/ThemeContex";
 
 const App = () => {
-  const [currentTheme, setTheme] = useState(AppTheme.LIGHT);
+  const { theme, setTheme } = useContext(ThemeContext);
 
   useEffect(() => {
     try {
@@ -23,26 +19,26 @@ const App = () => {
     } catch (error) {
       localStorage.setItem("theme", JSON.stringify(AppTheme.LIGHT));
     }
-  }, []);
+  }, [setTheme]);
 
   const handleThemeChange = () => {
-    const theme =
-      currentTheme === AppTheme.DARK ? AppTheme.LIGHT : AppTheme.DARK;
+    const selectedTheme =
+      theme === AppTheme.DARK ? AppTheme.LIGHT : AppTheme.DARK;
 
-    localStorage.setItem("theme", JSON.stringify(theme));
-    setTheme(theme);
+    localStorage.setItem("theme", JSON.stringify(selectedTheme));
+    setTheme(selectedTheme);
   };
 
   return (
     <Grommet
-      theme={currentTheme === AppTheme.LIGHT ? light : dark}
+      theme={theme === AppTheme.LIGHT ? light : dark}
       background="background"
       className="layout"
     >
       <Router>
         <Header justify="between">
           <Link to="/">Home</Link>
-          {currentTheme === AppTheme.LIGHT ? (
+          {theme === AppTheme.LIGHT ? (
             <Button icon={<Moon />} onClick={handleThemeChange} />
           ) : (
             <Button icon={<Sun />} onClick={handleThemeChange} />

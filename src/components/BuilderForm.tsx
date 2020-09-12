@@ -9,7 +9,7 @@ const BuilderForm: FC = () => {
     mode: "onChange",
     reValidateMode: "onChange",
   });
-  const { control, watch, handleSubmit } = methods;
+  const { control, watch } = methods;
 
   const { fields, append, remove } = useFieldArray({
     control,
@@ -18,11 +18,9 @@ const BuilderForm: FC = () => {
 
   console.log(watch());
 
-  const onSubmit = (data: unknown) => console.log(data);
-
   return (
     <FormProvider {...methods}>
-      <Form onSubmit={handleSubmit(onSubmit)}>
+      <Form>
         <Box align="center" justify="center">
           {!fields.length && (
             <Box align="center">

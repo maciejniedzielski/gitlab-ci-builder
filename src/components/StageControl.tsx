@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 import {
   Box,
   FormField,
@@ -18,6 +18,7 @@ import {
   useFieldArray,
 } from "react-hook-form";
 import VariableControl from "./VariableControl";
+import { ThemeContext } from "../context/ThemeContex";
 
 type StageControl = {
   index: number;
@@ -32,6 +33,7 @@ export const ConnectForm: FC<any> = ({ children }) => {
 };
 
 const StageControl: FC<StageControl> = ({ index, control, onRemove }) => {
+  const { theme } = useContext(ThemeContext);
   const { fields, append, remove } = useFieldArray({
     control,
     name: "variables",
@@ -56,7 +58,7 @@ const StageControl: FC<StageControl> = ({ index, control, onRemove }) => {
               onClick={() => onRemove(index)}
             />
           </Box>
-          <FormGroup>
+          <FormGroup theme={theme}>
             <FormField
               name={`stages[${index}].name`}
               html-for={`stages[${index}].name`}

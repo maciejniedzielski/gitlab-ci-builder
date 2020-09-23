@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@hookform/error-message": "0.0.4",
+    "@hookform/resolvers": "^0.1.1",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
@@ -21,7 +23,8 @@
     "react-scripts": "3.4.1",
     "shortid": "^2.2.15",
     "styled-components": "^5.1.1",
-    "typescript": "^3.7.5"
+    "typescript": "^3.7.5",
+    "yup": "^0.29.3"
   },
   "scripts": {
     "start": "react-scripts start --host 0.0.0.0",
@@ -46,6 +49,7 @@
   },
   "devDependencies": {
     "@types/react-router-dom": "^5.1.5",
-    "@types/styled-components": "^5.1.1"
+    "@types/styled-components": "^5.1.1",
+    "@types/yup": "^0.29.7"
   }
 }

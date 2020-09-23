@@ -5,7 +5,6 @@ export interface Variable {
 }
 
 export interface Stage {
-  id: string;
   name: string;
   run_branch: string[];
   except_branch: string[];

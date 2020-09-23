@@ -1,3 +1,4 @@
+const BORDER_RADIUS = "4px";
 export const light = {
   global: {
     colors: {
@@ -11,6 +12,28 @@ export const light = {
       "accent-3": "#FCA326",
     },
   },
+  button: {
+    border: {
+      radius: BORDER_RADIUS,
+    },
+    size: {
+      small: {
+        border: {
+          radius: BORDER_RADIUS,
+        },
+      },
+      medium: {
+        border: {
+          radius: BORDER_RADIUS,
+        },
+      },
+      large: {
+        border: {
+          radius: BORDER_RADIUS,
+        },
+      },
+    },
+  },
 };
 
 export const dark = {
@@ -19,5 +42,8 @@ export const dark = {
       ...light.global.colors,
       background: "#303030",
     },
+  },
+  button: {
+    ...light.button,
   },
 };
